@@ -301,10 +301,10 @@ define([
         this._maxCoord = projection.project(new Cartographic(Math.PI, CesiumMath.PI_OVER_TWO));
 
         // Constants, Make any of these public?
-        this._zoomFactor = 5.0;
+        this._zoomFactor = 1;
         this._rotateFactor = undefined;
         this._rotateRateRangeAdjustment = undefined;
-        this._maximumRotateRate = 1.77;
+        this._maximumRotateRate = 0.5;
         this._minimumRotateRate = 1.0 / 5000.0;
         this._minimumZoomRate = 20.0;
         this._maximumZoomRate = 5906376272000.0;  // distance from the Sun to Pluto in meters.
@@ -452,23 +452,38 @@ define([
       orientation: new HeadingPitchRoll()
     };
 
+
+
+    // handleZoom(controller, startPosition, movement, controller._zoomFactor, distance, Cartesian3.dot(unitPosition, camera.direction));
+    // startPosition 光标初始位置
+    // movement : 移动距离
+    // zoomFactor : 缩放因子，default：5
+    // distanceMeasure : 相机和观察点之间的距离，或相机海拔高度
+    // unitPositionDotDirection 相机位置向量和方向向量的夹角余弦值
     function handleZoom(object, startPosition, movement, zoomFactor, distanceMeasure, unitPositionDotDirection) {
         var percentage = 1.0;
         if (defined(unitPositionDotDirection)) {
-            percentage = CesiumMath.clamp(Math.abs(unitPositionDotDirection), 0.25, 1.0);
+            percentage = CesiumMath.clamp(Math.abs(unitPositionDotDirection), 0.25, 1.0);//  > 90° 则取 0.25， < 75°则取 1
         }
 
         // distanceMeasure should be the height above the ellipsoid.
         // The zoomRate slows as it approaches the surface and stops minimumZoomDistance above it.
+
         var minHeight = object.minimumZoomDistance * percentage;
         var maxHeight = object.maximumZoomDistance;
 
         var minDistance = distanceMeasure - minHeight;
         var zoomRate = zoomFactor * minDistance;
+
+
+        // this._minimumZoomRate = 20.0;
+        // this._maximumZoomRate = 5906376272000.0;  // distance from the Sun to Pluto in meters.
         zoomRate = CesiumMath.clamp(zoomRate, object._minimumZoomRate, object._maximumZoomRate);
 
         var diff = movement.endPosition.y - movement.startPosition.y;
         var rangeWindowRatio = diff / object._scene.canvas.clientHeight;
+
+        // object.maximumMovementRatio = 0.1;
         rangeWindowRatio = Math.min(rangeWindowRatio, object.maximumMovementRatio);
         var distance = zoomRate * rangeWindowRatio;
 
@@ -495,7 +510,7 @@ define([
         orientation.pitch = camera.pitch;
         orientation.roll = camera.roll;
 
-        if (camera.frustum instanceof OrthographicFrustum) {
+        if (camera.frustum instanceof OrthographicFrustum) { // 透视相机不进入此分支
             if (Math.abs(distance) > 0.0) {
                 camera.zoomIn(distance);
                 camera._adjustOrthographicFrustum();
@@ -516,7 +531,7 @@ define([
                     pickedPosition = camera.getPickRay(startPosition, scratchZoomPickRay).origin;
                     pickedPosition = Cartesian3.fromElements(pickedPosition.y, pickedPosition.z, pickedPosition.x);
                 } else {
-                    pickedPosition = pickGlobe(object, startPosition, scratchPickCartesian);
+                    pickedPosition = pickGlobe(object, startPosition, scratchPickCartesian); // 非 2D 模式下取相机到鼠标位置的交点
                 }
             }
             if (defined(pickedPosition)) {
@@ -562,10 +577,12 @@ define([
                     }
                 }
             } else if (mode === SceneMode.SCENE3D) {
+
                 var cameraPositionNormal = Cartesian3.normalize(camera.position, scratchCameraPositionNormal);
                 if (camera.positionCartographic.height < 3000.0 && Math.abs(Cartesian3.dot(camera.direction, cameraPositionNormal)) < 0.6) {
                     zoomOnVector = true;
                 } else {
+
                     var canvas = scene.canvas;
 
                     var centerPixel = scratchCenterPixel;
@@ -578,7 +595,7 @@ define([
 
                         var cameraPosition = scratchCameraPosition;
                         Cartesian3.clone(camera.position, cameraPosition);
-                        var target = object._zoomWorldPosition;
+                        var target = object._zoomWorldPosition; // 缩放中心点为光标所在位置
 
                         var targetNormal = scratchTargetNormal;
 
@@ -589,15 +606,15 @@ define([
                         }
 
                         var center = scratchCenter;
-                        var forward = scratchForwardNormal;
+                        var forward = scratchForwardNormal;  // 相机朝向
                         Cartesian3.clone(camera.direction, forward);
                         Cartesian3.add(cameraPosition, Cartesian3.multiplyByScalar(forward, 1000, scratchCartesian), center);
 
                         var positionToTarget = scratchPositionToTarget;
                         var positionToTargetNormal = scratchPositionToTargetNormal;
-                        Cartesian3.subtract(target, cameraPosition, positionToTarget);
+                        Cartesian3.subtract(target, cameraPosition, positionToTarget);    // 相机到光标位置的向量
 
-                        Cartesian3.normalize(positionToTarget, positionToTargetNormal);
+                        Cartesian3.normalize(positionToTarget, positionToTargetNormal); // 相机到光标位置的向量归一化
 
                         var alphaDot = Cartesian3.dot(cameraPositionNormal, positionToTargetNormal);
                         if (alphaDot >= 0.0) {
@@ -606,17 +623,21 @@ define([
                             object._zoomMouseStart.x = -1;
                             return;
                         }
-                        var alpha = Math.acos(-alphaDot);
+                        var alpha = Math.acos(-alphaDot); // 相机位置向量和 相机到光标位置向量的夹角
                         var cameraDistance = Cartesian3.magnitude( cameraPosition );
                         var targetDistance = Cartesian3.magnitude( target );
                         var remainingDistance = cameraDistance - distance;
-                        var positionToTargetDistance = Cartesian3.magnitude(positionToTarget);
+                        var positionToTargetDistance = Cartesian3.magnitude(positionToTarget); // 相机到光标位置的距离
 
                         var gamma = Math.asin( CesiumMath.clamp( positionToTargetDistance / targetDistance * Math.sin(alpha), -1.0, 1.0 ) );
                         var delta = Math.asin( CesiumMath.clamp( remainingDistance / targetDistance * Math.sin(alpha), -1.0, 1.0 ) );
                         var beta = gamma - delta + alpha;
-
-                        var up = scratchCameraUpNormal;
+                        if(beta < 0){
+                            if (movement.endPosition.y >= 0){ // fix camera jump in and out
+                                return;
+                            }
+                        }
+                        var up = scratchCameraUpNormal;  // 相机位置向量归一化
                         Cartesian3.normalize(cameraPosition, up);
                         var right = scratchCameraRightNormal;
                         right = Cartesian3.cross(positionToTargetNormal, up, right);
@@ -653,7 +674,6 @@ define([
 
                         // Set new position
                         Cartesian3.clone(cameraPosition, camera.position);
-
                         // Set new direction
                         Cartesian3.normalize(Cartesian3.subtract(center, cameraPosition, scratchCartesian), camera.direction);
                         Cartesian3.clone(camera.direction, camera.direction);
@@ -663,6 +683,7 @@ define([
                         Cartesian3.cross(camera.right, camera.direction, camera.up);
 
                         camera.setView(scratchZoomViewOptions);
+
                         return;
                     }
 
@@ -710,6 +731,7 @@ define([
         }
 
         camera.setView(scratchZoomViewOptions);
+
     }
 
     var translate2DStart = new Ray();
@@ -837,15 +859,17 @@ define([
 
         var depthIntersection;
         if (scene.pickPositionSupported) {
-            depthIntersection = scene.pickPositionWorldCoordinates(mousePosition, scratchDepthIntersection);
+            depthIntersection = scene.pickPositionWorldCoordinates(mousePosition, scratchDepthIntersection); // The returned position is in world coordinates.
         }
 
         var ray = camera.getPickRay(mousePosition, pickGlobeScratchRay);
-        var rayIntersection = globe.pickWorldCoordinates(ray, scene, scratchRayIntersection);
+        var rayIntersection = globe.pickWorldCoordinates(ray, scene, scratchRayIntersection); // Find an intersection between a ray and the globe surface that was rendered
 
         var pickDistance = defined(depthIntersection) ? Cartesian3.distance(depthIntersection, camera.positionWC) : Number.POSITIVE_INFINITY;
         var rayDistance = defined(rayIntersection) ? Cartesian3.distance(rayIntersection, camera.positionWC) : Number.POSITIVE_INFINITY;
 
+
+        // 返回离相机较近的交点
         if (pickDistance < rayDistance) {
             return Cartesian3.clone(depthIntersection, result);
         }
@@ -1425,7 +1449,10 @@ define([
         thetaWindowRatio = Math.min(thetaWindowRatio, controller.maximumMovementRatio);
 
         var deltaPhi = rotateRate * phiWindowRatio * Math.PI * 2.0;
+
         var deltaTheta = rotateRate * thetaWindowRatio * Math.PI;
+        // 俯仰角调整方向翻转
+        // var deltaTheta = -rotateRate * thetaWindowRatio * Math.PI;
 
         if (!rotateOnlyVertical) {
             camera.rotateRight(deltaPhi);
@@ -1554,10 +1581,10 @@ define([
         var windowPosition = zoomCVWindowPos;
         windowPosition.x = canvas.clientWidth / 2;
         windowPosition.y = canvas.clientHeight / 2;
-        var ray = camera.getPickRay(windowPosition, zoomCVWindowRay);
+        var ray = camera.getPickRay(windowPosition, zoomCVWindowRay); // 相机到canvas中心的射线
 
         var intersection;
-        var height = ellipsoid.cartesianToCartographic(camera.position, zoom3DCartographic).height;
+        var height = ellipsoid.cartesianToCartographic(camera.position, zoom3DCartographic).height; // 笛卡尔坐标系转经纬度
         if (height < controller._minimumPickingTerrainHeight) {
             intersection = pickGlobe(controller, windowPosition, zoomCVIntersection);
         }
