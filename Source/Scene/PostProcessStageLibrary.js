@@ -25,6 +25,8 @@ define([
         '../Shaders/PostProcessStages/NightVision',
         '../Shaders/PostProcessStages/ReinhardTonemapping',
         '../Shaders/PostProcessStages/Silhouette',
+        '../Shaders/PostProcessStages/Snow',
+        '../Shaders/PostProcessStages/Rain',
         '../ThirdParty/Shaders/FXAA3_11',
         './AutoExposure',
         './PostProcessStage',
@@ -57,6 +59,8 @@ define([
         NightVision,
         ReinhardTonemapping,
         Silhouette,
+        Snow,
+        Rain,
         FXAA3_11,
         AutoExposure,
         PostProcessStage,
@@ -866,6 +870,22 @@ define([
                 earthRadius : Ellipsoid.WGS84.maximumRadius
             }
         });
+    };
+
+    PostProcessStageLibrary.createSnowStage = function() {
+        var snow = new PostProcessStage({
+            name: 'czm_snow',
+            fragmentShader: Snow
+        });
+        return snow;
+    };
+
+    PostProcessStageLibrary.createRainStage = function() {
+        var snow = new PostProcessStage({
+            name: 'czm_rain',
+            fragmentShader: Rain
+        });
+        return snow;
     };
 
     return PostProcessStageLibrary;
