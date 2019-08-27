@@ -25,7 +25,8 @@ define([
         './MapMode2D',
         './SceneMode',
         './SceneTransforms',
-        './TweenCollection'
+        './TweenCollection',
+        './Billboard'
     ], function(
         Cartesian2,
         Cartesian3,
@@ -53,7 +54,8 @@ define([
         MapMode2D,
         SceneMode,
         SceneTransforms,
-        TweenCollection) {
+        TweenCollection,
+        Billboard) {
     'use strict';
 
     /**
@@ -858,8 +860,13 @@ define([
         }
 
         var depthIntersection;
+        var pickedEntity = scene.pick(mousePosition);
         if (scene.pickPositionSupported) {
-            depthIntersection = scene.pickPositionWorldCoordinates(mousePosition, scratchDepthIntersection); // The returned position is in world coordinates.
+            if (pickedEntity && pickedEntity.primitive && pickedEntity.primitive instanceof Billboard && pickedEntity.primitive.disableDepthTestDistance === Number.POSITIVE_INFINITY) {
+                // 如果 pickedEntity 是 billboard 并且 billboard.disableDepthTestDistance === Number.POSITIVE_INFINITY 则忽略此entity，解决 此种billboard 在canvas中心点缩放失效的问题
+            } else {
+                depthIntersection = scene.pickPositionWorldCoordinates(mousePosition, scratchDepthIntersection); // The returned position is in world coordinates.
+            }
         }
 
         var ray = camera.getPickRay(mousePosition, pickGlobeScratchRay);
