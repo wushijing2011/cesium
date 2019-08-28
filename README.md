@@ -36,11 +36,11 @@ Using Cesium ion helps support CesiumJS development. :heart:
 
 ### :clap: Featured Demos ###
 
-<p align="center"> 
+<p align="center">
 <a href="https://cesiumjs.org/demos/CyberCity3D/"><img src="https://cesiumjs.org/demos/images/CyberCity.png" height="150" /></a>&nbsp;
 <a href="https://apps.agi.com/SatelliteViewer/?Status=Operational"><img src="https://cesiumjs.org/demos/images/SatelliteViewer.png" height="150" /></a>&nbsp;
 <a href="https://cesium.com/blog/2018/02/05/historic-pharsalia-cabin-point-cloud/"><img src="https://cesiumjs.org/demos/images/pharsaliacabin.jpg" height="150" /></a>&nbsp;
-<a href="https://cesiumjs.org/demos/onesky/"><img src="https://cesiumjs.org/demos/images/onesky.jpg" height="150" /></a>&nbsp; 
+<a href="https://cesiumjs.org/demos/onesky/"><img src="https://cesiumjs.org/demos/images/onesky.jpg" height="150" /></a>&nbsp;
 <a href="https://cesiumjs.org/demos/STORMVG/"><img src="https://cesiumjs.org/demos/images/STORMVG.jpg" height="150" /></a>&nbsp;
 <a href="https://cesiumjs.org/demos/GEFSonline/"><img src="https://cesiumjs.org/demos/images/GEFS.jpg" height="150" /></a>&nbsp;
 <a href="https://cesiumjs.org/demos/noradtrackssanta/"><img src="https://cesiumjs.org/demos/images/noradtrackssanta.png" height="150" /></a>&nbsp;
@@ -52,7 +52,7 @@ Using Cesium ion helps support CesiumJS development. :heart:
 <a href="https://cesiumjs.org/demos/Flightradar24/"><img src="https://cesiumjs.org/demos/images/Flightradar24.jpg" height="150" /></a>&nbsp;
 <a href="https://cesiumjs.org/demos/fodarEarth/"><img src="https://cesiumjs.org/demos/images/fodar/fodar_03_md.jpg" height="150" /></a>&nbsp;
 <a href="https://cesiumjs.org/demos/MarsTrek/"><img src="https://cesiumjs.org/demos/images/MarsTrek.png" height="150" /></a>&nbsp;
-<a href="https://cesiumjs.org/demos/hiroshima-archive/"><img src="https://cesiumjs.org/demos/images/hiroshima/showcase.jpg" height="150" /></a>&nbsp; 
+<a href="https://cesiumjs.org/demos/hiroshima-archive/"><img src="https://cesiumjs.org/demos/images/hiroshima/showcase.jpg" height="150" /></a>&nbsp;
 <a href="https://cesiumjs.org/demos/xalps/"><img src="https://cesiumjs.org/demos/images/RedBull1.jpg" height="150" /></a>&nbsp;
 </p>
 
@@ -89,8 +89,8 @@ Using Cesium ion helps support CesiumJS development. :heart:
 <a href="https://cesiumjs.org/demos/supermap/"><img src="https://cesiumjs.org/demos/images/supermap.jpg" height="150" /></a>&nbsp;
 <a href="https://cesiumjs.org/demos/sputnik/"><img src="https://cesiumjs.org/demos/images/sputnik.jpg" height="150" /></a>&nbsp;
 <a href="https://cesiumjs.org/demos/idecanarias/"><img src="https://cesiumjs.org/demos/images/idecanarias.jpg" height="150" /></a>&nbsp;
-<a href="https://cesiumjs.org/demos/pop/"><img src="https://cesiumjs.org/demos/images/pop_bubbles.jpg" height="150" /></a>&nbsp;       
-<a href="https://cesiumjs.org/demos/analyticalservices/"><img src="https://cesiumjs.org/demos/images/analyticalservices.jpg" height="150" /></a>&nbsp;    
+<a href="https://cesiumjs.org/demos/pop/"><img src="https://cesiumjs.org/demos/images/pop_bubbles.jpg" height="150" /></a>&nbsp;
+<a href="https://cesiumjs.org/demos/analyticalservices/"><img src="https://cesiumjs.org/demos/images/analyticalservices.jpg" height="150" /></a>&nbsp;
 <a href="https://cesiumjs.org/demos/uch_enmek/"><img src="https://cesiumjs.org/demos/images/uch_enmek.png" height="150" /></a>&nbsp;
 <a href="https://cesiumjs.org/demos/fishing/"><img src="https://cesiumjs.org/demos/images/fishing.jpg" height="150" /></a>&nbsp;
 <a href="https://cesiumjs.org/demos/moontrek/"><img src="https://cesiumjs.org/demos/images/moontrek.jpg" height="150" /></a>&nbsp;
@@ -100,7 +100,7 @@ Using Cesium ion helps support CesiumJS development. :heart:
 <a href="https://cesiumjs.org/demos/HOWL/"><img src="https://cesiumjs.org/demos/images/HOWL.jpg" height="150" /></a>&nbsp;
 <a href="https://cesiumjs.org/demos/UNISEC/"><img src="https://cesiumjs.org/demos/images/UNISEC.jpg" height="150" /></a>&nbsp;
 <a href="https://cesiumjs.org/demos/AllisonHouse/"><img src="https://cesiumjs.org/demos/images/AllisonHouse.jpg" height="150" /></a>&nbsp;
-<a href="https://cesiumjs.org/demos/Smapshot/"><img src="https://cesiumjs.org/demos/images/smapshot.jpg" height="150" /></a>&nbsp; 
+<a href="https://cesiumjs.org/demos/Smapshot/"><img src="https://cesiumjs.org/demos/images/smapshot.jpg" height="150" /></a>&nbsp;
 <a href="https://cesiumjs.org/demos/Ascendium/"><img src="https://cesiumjs.org/demos/images/Ascendium.png" height="150" /></a>&nbsp;
 <a href="https://cesiumjs.org/demos/PropellerPlatform/"><img src="https://cesiumjs.org/demos/images/PropellerPlatform.png" height="150" /></a>&nbsp;
 <a href="https://cesiumjs.org/demos/EndPoint/"><img src="https://cesiumjs.org/demos/images/EndPoint.png" height="150" /></a>&nbsp;
@@ -202,3 +202,43 @@ Using Cesium ion helps support CesiumJS development. :heart:
 <a href="https://cesiumjs.org/Cesium/Apps/Sandcastle/"><img src="https://cesiumjs.org/demos/images/Sandcastle.png" height="150" /></a>&nbsp;
 <a href="https://cesiumjs.org/Cesium/Build/Apps/CesiumViewer/"><img src="https://cesiumjs.org/images/CesiumViewer.jpg" height="150" /></a>&nbsp;
 </p>
+
+
+
+======
+
+### ScreenSpaceCameraController.js
+
+* 修改默认值
+
+```
+    this._zoomFactor = 1; // 调慢缩放速度，原始默认值 5
+    this._maximumRotateRate = 0.5; // 调慢旋转速度，原始默认值 1.77
+```
+
+* fix bug ： 缩放抖动
+
+  + 变量 movement 鼠标缩放距离， movement.startPosition 恒为 `{ x: 0, y: 0}`, movement.endPosition.x 恒为 0， 只有 movement.endPosition.y 代表鼠标缩放距离， 为正值时鼠标动作为‘放大’，为负值时鼠标动作为’缩小‘。
+  + 变量 beta 为经过一系列计算得到的某个夹角 beta < 0 时 动作为‘缩小’，反之为’放大‘。
+  + 以下代码作用是：忽略鼠标动作是’放大‘但计算出的 beta 值为’缩小‘的情况。
+```
+    if(beta < 0){
+        if (movement.endPosition.y >= 0){ // fix camera jump in and out
+            return;
+        }
+    }
+```
+
+* fix bug :  当 disableDepthTestDistance 设置为 Number.POSITIVE_INFINITY 的 Billboard 位于 canvas 中心位置时 zoom失效（只能zoomOut,不能zoomIn）
+
+
+```
+    var pickedEntity = scene.pick(mousePosition);
+    if (scene.pickPositionSupported) {
+        if (pickedEntity && pickedEntity.primitive && pickedEntity.primitive instanceof Billboard && pickedEntity.primitive.disableDepthTestDistance === Number.POSITIVE_INFINITY) {
+            // 如果 pickedEntity 是 billboard 并且 billboard.disableDepthTestDistance === Number.POSITIVE_INFINITY 则忽略此entity，解决 此种billboard 在canvas中心点缩放失效的问题
+        } else {
+            depthIntersection = scene.pickPositionWorldCoordinates(mousePosition, scratchDepthIntersection); // The returned position is in world coordinates.
+        }
+    }
+```
