@@ -1342,7 +1342,8 @@ define([
         var camera = scene.camera;
 
         if (!Matrix4.equals(camera.transform, Matrix4.IDENTITY)) {
-            rotate3D(controller, startPosition, movement);
+            // rotate3D(controller, startPosition, movement);
+            rotate3D(controller, startPosition, movement, null, false, !controller.enableTilt);
             return;
         }
 

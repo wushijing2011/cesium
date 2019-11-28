@@ -27,3 +27,13 @@
     // 俯仰角调整方向翻转
     var deltaTheta = -rotateRate * thetaWindowRatio * Math.PI;
 ``` -->
+
+* fix bug: 调用 camera.lookAtTransform() enableTilt 失效
+
+```
+    if (!Matrix4.equals(camera.transform, Matrix4.IDENTITY)) {
+        // rotate3D(controller, startPosition, movement);
+        rotate3D(controller, startPosition, movement, null, false, !controller.enableTilt);
+        return;
+    }
+```
