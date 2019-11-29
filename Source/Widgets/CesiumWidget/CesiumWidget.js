@@ -80,12 +80,13 @@ define([
                         requestAnimationFrame(render);
                     }
                 } catch (error) {
-                    widget._useDefaultRenderLoop = false;
-                    widget._renderLoopRunning = false;
-                    if (widget._showRenderLoopErrors) {
-                        var title = 'An error occurred while rendering.  Rendering has stopped.';
-                        widget.showErrorPanel(title, undefined, error);
-                    }
+                    // widget._useDefaultRenderLoop = false;
+                    // widget._renderLoopRunning = false;
+                    // if (widget._showRenderLoopErrors) {
+                    //     var title = 'An error occurred while rendering.  Rendering has stopped.';
+                    //     widget.showErrorPanel(title, undefined, error);
+                    // }
+                    requestAnimationFrame(render);
                 }
             } else {
                 widget._renderLoopRunning = false;

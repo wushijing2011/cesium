@@ -454,8 +454,6 @@ define([
       orientation: new HeadingPitchRoll()
     };
 
-
-
     // handleZoom(controller, startPosition, movement, controller._zoomFactor, distance, Cartesian3.dot(unitPosition, camera.direction));
     // startPosition 光标初始位置
     // movement : 移动距离
@@ -476,7 +474,6 @@ define([
 
         var minDistance = distanceMeasure - minHeight;
         var zoomRate = zoomFactor * minDistance;
-
 
         // this._minimumZoomRate = 20.0;
         // this._maximumZoomRate = 5906376272000.0;  // distance from the Sun to Pluto in meters.
