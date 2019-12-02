@@ -86,12 +86,13 @@ define([
                     //     var title = 'An error occurred while rendering.  Rendering has stopped.';
                     //     widget.showErrorPanel(title, undefined, error);
                     // }
-                    requestAnimationFrame(render);
                     if (isNaN(widget.camera.position.x)) {
                         widget.camera.position = Cartesian3.fromDegrees(0, 0, 9000000);
+                        widget.camera.setView();
                     } else {
                         console.info('render error:', error, widget);
                     }
+                    requestAnimationFrame(render);
                 }
             } else {
                 widget._renderLoopRunning = false;
