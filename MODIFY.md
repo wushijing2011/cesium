@@ -37,3 +37,20 @@
         return;
     }
 ```
+
+
+* feature: 出错后禁用弹出窗口并继续render
+```
+    // widget._useDefaultRenderLoop = false;
+    // widget._renderLoopRunning = false;
+    // if (widget._showRenderLoopErrors) {
+    //     var title = 'An error occurred while rendering.  Rendering has stopped.';
+    //     widget.showErrorPanel(title, undefined, error);
+    // }
+    requestAnimationFrame(render);
+    if (isNaN(widget.camera.position.x)) {
+        widget.camera.position = Cartesian3.fromDegrees(0, 0, 9000000);
+    } else {
+        console.info('render error:', error, widget);
+    }
+```

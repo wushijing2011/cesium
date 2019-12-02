@@ -87,6 +87,11 @@ define([
                     //     widget.showErrorPanel(title, undefined, error);
                     // }
                     requestAnimationFrame(render);
+                    if (isNaN(widget.camera.position.x)) {
+                        widget.camera.position = Cartesian3.fromDegrees(0, 0, 9000000);
+                    } else {
+                        console.info('render error:', error, widget);
+                    }
                 }
             } else {
                 widget._renderLoopRunning = false;
