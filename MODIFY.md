@@ -55,3 +55,15 @@
     }
     requestAnimationFrame(render);
 ```
+
+* fix bug: 3dTile 加载报错 （v.1.1.13） Cartesian3.js
+
+```
+    if (isNaN(result.x) || isNaN(result.y) || isNaN(result.z)) {
+        // 不抛出此错误,手动设置
+        // throw new DeveloperError('normalized result is not a number');
+        result.x = 0;
+        result.y = 1;
+        result.z = 0;
+    }
+```

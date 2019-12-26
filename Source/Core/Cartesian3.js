@@ -418,7 +418,10 @@ define([
 
         //>>includeStart('debug', pragmas.debug);
         if (isNaN(result.x) || isNaN(result.y) || isNaN(result.z)) {
-            throw new DeveloperError('normalized result is not a number');
+            // throw new DeveloperError('normalized result is not a number');
+            result.x = 0;
+            result.y = 1;
+            result.z = 0;
         }
         //>>includeEnd('debug');
 
